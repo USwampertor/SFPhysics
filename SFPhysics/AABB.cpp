@@ -4,14 +4,13 @@
 #include "CircleBounds.h"
 #include <iostream>
 
-using namespace std;
 
 sfp::AABB::AABB():
-    AABB(Vector2f(0,0),Vector2f(1,1))
+    AABB(sf::Vector2f(0,0), sf::Vector2f(1,1))
 {
 }
 
-sfp::AABB::AABB(Vector2f min, Vector2f max):
+sfp::AABB::AABB(sf::Vector2f min, sf::Vector2f max):
     min(min),max(max)
 {
 }
@@ -39,7 +38,7 @@ sfp::BoundsCollisionResult sfp::AABB::collideWithAABB(AABB &other)
     AABB* B = &other;
     
     // Vector from A to B
-    Vector2f n = B->getPosition() - A->getPosition();
+    sf::Vector2f n = B->getPosition() - A->getPosition();
 
 // Calculate half extents along x axis for each object
     float a_extent_x = (max.x - min.x) / 2;
@@ -65,22 +64,22 @@ sfp::BoundsCollisionResult sfp::AABB::collideWithAABB(AABB &other)
             if (x_overlap < y_overlap)
             {
                 // Point towards B knowing that n points from A to B
-                Vector2f normal;
+              sf::Vector2f normal;
              
                 if (n.x < 0)
-                    normal = Vector2f(-1, 0);
+                    normal = sf::Vector2f(-1, 0);
                 else
-                    normal = Vector2f(1, 0);
+                    normal = sf::Vector2f(1, 0);
                 return BoundsCollisionResult(*this, other, x_overlap, normal);
             }
             else
             {
-                Vector2f normal;
+              sf::Vector2f normal;
                 // Point toward B knowing that n points from A to B
                 if (n.y < 0)
-                    normal = Vector2f(0, -1);
+                    normal = sf::Vector2f(0, -1);
                 else
-                    normal = Vector2f(0, 1);
+                    normal = sf::Vector2f(0, 1);
                 return BoundsCollisionResult(*this, other, y_overlap, normal);
             }
         }
@@ -101,10 +100,10 @@ sfp::BoundsCollisionResult sfp::AABB::collideWithCircle(CircleBounds& other) {
     Bounds* B = &other;
 
         // Vector from A to B
-    Vector2f n = B->getPosition() - A->getPosition();
+    sf::Vector2f n = B->getPosition() - A->getPosition();
 
     // Closest point on A to center of B
-    Vector2f closest = n;
+    sf::Vector2f closest = n;
 
         // Calculate half extents along each axis
     float x_extent = (max.x - min.x) / 2;
@@ -143,7 +142,7 @@ sfp::BoundsCollisionResult sfp::AABB::collideWithCircle(CircleBounds& other) {
         }
     }
 
-    Vector2f normal = n - closest;
+    sf::Vector2f normal = n - closest;
     double d = pow(normal.x, 2) + pow(normal.y, 2);
     double r = other.getRadius();
 
@@ -157,16 +156,16 @@ sfp::BoundsCollisionResult sfp::AABB::collideWithCircle(CircleBounds& other) {
 
     // Collision normal needs to be flipped to point outside if circle was
     // inside the AABB
-    n = Vector2f(normal.x / d, normal.y / d);
+    n = sf::Vector2f(normal.x / d, normal.y / d);
     if (inside)
     {
-        Vector2f normal = -n;
+      sf::Vector2f normal = -n;
         double penetration = r - d;
         return BoundsCollisionResult(*this, other,penetration,normal);
     }
     else
     {
-        Vector2f normal = n;
+      sf::Vector2f normal = n;
         double penetration = r - d;
         return BoundsCollisionResult(*this, other, penetration, normal);
     }
@@ -174,42 +173,42 @@ sfp::BoundsCollisionResult sfp::AABB::collideWithCircle(CircleBounds& other) {
   
 }
 
-Vector2f sfp::AABB::getPosition()
+sf::Vector2f sfp::AABB::getPosition()
 {
     
     return min + ((max - min) / 2.0f);
     
 }
 
-void sfp::AABB::setPosition(Vector2f center)
+void sfp::AABB::setPosition(sf::Vector2f center)
 {
     Bounds::setPosition(center);
     //TODO: Check to make sure not off by 1
-    Vector2f halfSize = (max - min)/2.0f;
+    sf::Vector2f halfSize = (max - min)/2.0f;
     min = center - halfSize;
     max = center + halfSize;
     if(onMove) onMove(center);
 }
 
-void sfp::AABB::setSize(Vector2f extents)
+void sfp::AABB::setSize(sf::Vector2f extents)
 {
-    Vector2f center = (max + min) / 2.0f;
+  sf::Vector2f center = (max + min) / 2.0f;
     min = center- (extents/2.0f);
     max = center + (extents / 2.0f);
 }
 
-Vector2f sfp::AABB::getSize()
+sf::Vector2f sfp::AABB::getSize()
 {
     return max - min;
 }
 
-void sfp::AABB::visualize(RenderWindow& window)
+void sfp::AABB::visualize(sf::RenderWindow& window)
 {
     visual.setSize(
-        Vector2f(max.x-min.x+1,max.y-min.y+1)); // so it doesnt reallocate
+      sf::Vector2f(max.x-min.x+1,max.y-min.y+1)); // so it doesnt reallocate
     visual.setPosition(min);
-    visual.setFillColor(Color::Transparent);
-    visual.setOutlineColor(Color::White);
+    visual.setFillColor(sf::Color::Transparent);
+    visual.setOutlineColor(sf::Color::White);
     visual.setOutlineThickness(2);
     window.draw(visual);
 }

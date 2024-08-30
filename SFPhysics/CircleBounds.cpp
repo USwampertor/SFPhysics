@@ -3,14 +3,14 @@
 #include <math.h>
 #include "AABB.h"
 
-using namespace std;
+// using namespace std;
 
 sfp::CircleBounds::CircleBounds() :
-    CircleBounds(Vector2f(0.5, 0.5), 1)
+    CircleBounds(sf::Vector2f(0.5, 0.5), 1)
 {
 }
 
-sfp::CircleBounds::CircleBounds(Vector2f position, float radius):
+sfp::CircleBounds::CircleBounds(sf::Vector2f position, float radius):
     position(position), radius(radius), visual(10.0f)
 {
 }
@@ -35,7 +35,7 @@ sfp::BoundsCollisionResult sfp::CircleBounds::collideWithCircle(CircleBounds& ot
     
 
     // Vector from A to B
-    Vector2f n = B->position - A->position;
+    sf::Vector2f n = B->position - A->position;
     float distSquared = powf(n.x, 2) + powf(n.y, 2);
 
     float r = A->radius + B->radius;
@@ -56,7 +56,7 @@ sfp::BoundsCollisionResult sfp::CircleBounds::collideWithCircle(CircleBounds& ot
 
         // Utilize our d since we performed sqrt on it already within Length( )
         // Points from A to B, and is a unit vector
-        Vector2f normal = (position-other.position) / d;
+        sf::Vector2f normal = (position-other.position) / d;
         return BoundsCollisionResult(*this, other, penetration, normal);
     }
 
@@ -65,7 +65,7 @@ sfp::BoundsCollisionResult sfp::CircleBounds::collideWithCircle(CircleBounds& ot
     {
         // Choose random (but consistent) values
         float penetration = A->radius;
-        Vector2f normal = Vector2f(1, 0);
+        sf::Vector2f normal = sf::Vector2f(1, 0);
         return BoundsCollisionResult(*this, other, penetration, normal);
     }
 }
@@ -81,12 +81,12 @@ sfp::BoundsCollisionResult sfp::CircleBounds::collideWithAABB(AABB& other)
     return result;
 }
 
-Vector2f sfp::CircleBounds::getPosition()
+sf::Vector2f sfp::CircleBounds::getPosition()
 {
     return position;
 }
 
-void sfp::CircleBounds::setPosition(Vector2f center)
+void sfp::CircleBounds::setPosition(sf::Vector2f center)
 {
     if (onMove){
         onMove(center);
@@ -105,22 +105,22 @@ float sfp::CircleBounds::getRadius()
     return radius;
 }
 
-void sfp::CircleBounds::setSize(Vector2f extents)
+void sfp::CircleBounds::setSize(sf::Vector2f extents)
 {
-    setRadius(max(extents.x, extents.y)/2);
+    setRadius(std::max(extents.x, extents.y)/2);
 }
 
-Vector2f sfp::CircleBounds::getSize()
+sf::Vector2f sfp::CircleBounds::getSize()
 {
-    return Vector2f(radius,radius);
+    return sf::Vector2f(radius,radius);
 }
 
-void sfp::CircleBounds::visualize(RenderWindow& window)
+void sfp::CircleBounds::visualize(sf::RenderWindow& window)
 {
     visual.setRadius(radius);
-    visual.setPosition(position-Vector2f(radius,radius));
-    visual.setFillColor(Color::Transparent);
-    visual.setOutlineColor(Color::White);
+    visual.setPosition(position- sf::Vector2f(radius,radius));
+    visual.setFillColor(sf::Color::Transparent);
+    visual.setOutlineColor(sf::Color::White);
     visual.setOutlineThickness(2);
     window.draw(visual);
 }

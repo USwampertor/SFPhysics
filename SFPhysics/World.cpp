@@ -4,7 +4,7 @@
 
 //internal utility functions
 namespace sfp {
-	static float Dot(Vector2f a, Vector2f b){
+	static float Dot(sf::Vector2f a, sf::Vector2f b){
 		return (a.x * b.x) + (a.y * b.y);
 	}
 	static void ResolveCollision(PhysicsBodyCollisionResult &collision)
@@ -12,7 +12,7 @@ namespace sfp {
 		PhysicsBody &A = collision.object1;
 		PhysicsBody &B = collision.object2;
 		// Calculate relative velocity
-		Vector2f rv = B.getVelocity() - A.getVelocity();
+		sf::Vector2f rv = B.getVelocity() - A.getVelocity();
 
 		// Calculate relative velocity in terms of the normal direction
 		float velAlongNormal = Dot(rv, collision.normal);
@@ -22,7 +22,7 @@ namespace sfp {
 			return;
 
 		// Calculate restitution
-		float e = min(A.getRestitution(), B.getRestitution());
+		float e = std::min(A.getRestitution(), B.getRestitution());
 
 		// Calculate impulse scalar
 		float j = -(1 + e) * velAlongNormal;
@@ -30,7 +30,7 @@ namespace sfp {
 
 		
 		// Apply impulse
-		Vector2f impulse = j * collision.normal;
+		sf::Vector2f impulse = j * collision.normal;
 		float aMass = A.getMass();
 		float bMass = B.getMass();
 		if (aMass != 0) {
@@ -45,7 +45,7 @@ namespace sfp {
 
 
 // class functions
-sfp::World::World(Vector2f gravity):
+sfp::World::World(sf::Vector2f gravity):
 	gravity(gravity)
 {
 
@@ -100,7 +100,7 @@ void sfp::World::UpdatePhysics(unsigned long deltaMilliseconds,unsigned long msP
 	}
 }
 
-void sfp::World::VisualizeAllBounds(RenderWindow& window)
+void sfp::World::VisualizeAllBounds(sf::RenderWindow& window)
 {
 	for (auto obj : objects) {
 		obj->visualizeBounds(window);

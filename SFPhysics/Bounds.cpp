@@ -18,7 +18,7 @@ BoundsCollisionResult sfp::Bounds::reverseCollsionObjects(BoundsCollisionResult 
 	}
 }
 
-void sfp::Bounds::setPosition(Vector2f center)
+void sfp::Bounds::setPosition(sf::Vector2f center)
 {
 	//nop
 }

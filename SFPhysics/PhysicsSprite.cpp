@@ -1,10 +1,10 @@
 #include "pch.h"
 #include "PhysicsSprite.h"
 
-void sfp::PhysicsSprite::setTexture(Texture& img)
+void sfp::PhysicsSprite::setTexture(sf::Texture& img)
 {
 	CenteredSprite::setTexture(img);
-	IntRect sz = CenteredSprite::getTextureRect();
-	PhysicsBodyT<AABB>::getBounds().setSize(Vector2f(sz.width, sz.height));
+	sf::IntRect sz = CenteredSprite::getTextureRect();
+	PhysicsBodyT<AABB>::getBounds().setSize(sf::Vector2f(sz.width, sz.height));
 	setCenter(CenteredSprite::getCenter());
 }

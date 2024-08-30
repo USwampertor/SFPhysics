@@ -163,13 +163,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CenteredConvexShape.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="include\SFPhysics.h" />
     <ClInclude Include="include\SFPhysics\AABB.h" />
     <ClInclude Include="include\SFPhysics\Bounds.h" />
     <ClInclude Include="include\SFPhysics\BoundsCollisionResult.h" />
     <ClInclude Include="include\SFPhysics\CenteredCircle.h" />
+    <ClInclude Include="include\SFPhysics\CenteredConvexShape.h" />
     <ClInclude Include="include\SFPhysics\CenteredRectangle.h" />
     <ClInclude Include="include\SFPhysics\CenteredShape.h" />
     <ClInclude Include="include\SFPhysics\CenteredSprite.h" />

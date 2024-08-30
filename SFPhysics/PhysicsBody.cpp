@@ -10,13 +10,13 @@ using namespace sfp;
 
 sfp::PhysicsBody::PhysicsBody():
 	restitution(1.0),mass(1.0),isStatic(false),
-	velocity(Vector2f(0,0))
+	velocity(sf::Vector2f(0,0))
 {
 }
 
 
 
-void sfp::PhysicsBody::setPosition(Vector2f center)
+void sfp::PhysicsBody::setPosition(sf::Vector2f center)
 {
 	if (getBounds().getPosition() != center) {
 		getBounds().setPosition(center);
@@ -24,7 +24,7 @@ void sfp::PhysicsBody::setPosition(Vector2f center)
 	}
 }
 
-Vector2f sfp::PhysicsBody::getPosition()
+sf::Vector2f sfp::PhysicsBody::getPosition()
 {
 	return getBounds().getPosition();
 }
@@ -33,17 +33,17 @@ Vector2f sfp::PhysicsBody::getPosition()
 
 
 
-void sfp::PhysicsBody::visualizeBounds(RenderWindow& window)
+void sfp::PhysicsBody::visualizeBounds(sf::RenderWindow& window)
 {
 	getBounds().visualize(window);
 }
 
-Vector2f sfp::PhysicsBody::getVelocity()
+sf::Vector2f sfp::PhysicsBody::getVelocity()
 {
 	return velocity;
 }
 
-void sfp::PhysicsBody::setVelocity(Vector2f v)
+void sfp::PhysicsBody::setVelocity(sf::Vector2f v)
 {
 	if (!isStatic) {
 		velocity = v;
@@ -91,7 +91,7 @@ void sfp::PhysicsBody::update(unsigned int deltaMilliseconds)
 	//cout << "in update ms=" << deltaMilliseconds << endl;
 	moved = false;
 	if (!isStatic) {
-		Vector2f pos = getBounds().getPosition();
+		sf::Vector2f pos = getBounds().getPosition();
 		pos += (velocity * (float)deltaMilliseconds);
 		//pos += velocity * 10.0f;
 		setPosition(pos);
@@ -99,7 +99,7 @@ void sfp::PhysicsBody::update(unsigned int deltaMilliseconds)
 	if (onUpdate) onUpdate(deltaMilliseconds);
 }
 
-void sfp::PhysicsBody::applyImpulse(Vector2f impulse)
+void sfp::PhysicsBody::applyImpulse(sf::Vector2f impulse)
 {
 	if (!isStatic) {
 		velocity += impulse;

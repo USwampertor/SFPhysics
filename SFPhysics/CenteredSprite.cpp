@@ -3,54 +3,54 @@
 
 using namespace sfp;
 
-sfp::CenteredSprite::CenteredSprite(): Sprite()
+sfp::CenteredSprite::CenteredSprite(): sf::Sprite()
 {
 }
 
-CenteredSprite::CenteredSprite(Texture& tex) :
-    Sprite(tex)
+CenteredSprite::CenteredSprite(sf::Texture& tex) :
+  sf::Sprite(tex)
 {
 }
 
-void sfp::CenteredSprite::setImage(Texture& img)
+void sfp::CenteredSprite::setImage(sf::Texture& img)
 {
-    Vector2f center = getCenter();
-    Sprite::setTexture(img);
+  sf::Vector2f center = getCenter();
+  sf::Sprite::setTexture(img);
     setCenter(center);
 }
 
-Texture& sfp::CenteredSprite::getImage()
+sf::Texture& sfp::CenteredSprite::getImage()
 {
     return getImage();
 }
 
 
-void CenteredSprite::setCenter(Vector2f center)
+void CenteredSprite::setCenter(sf::Vector2f center)
 {
-    Vector2f sz = getSize();
-    setPosition(Vector2f(center.x - (sz.x / 2), center.y - (sz.y / 2)));
+  sf::Vector2f sz = getSize();
+    setPosition(sf::Vector2f(center.x - (sz.x / 2), center.y - (sz.y / 2)));
 }
 
-Vector2f CenteredSprite::getCenter()
+sf::Vector2f CenteredSprite::getCenter()
 {
-    Vector2f szvect = getSize();
-    Vector2f pos = getPosition();
-    return Vector2f(pos + (szvect / 2.0f));
+  sf::Vector2f szvect = getSize();
+    sf::Vector2f pos = getPosition();
+    return sf::Vector2f(pos + (szvect / 2.0f));
 }
 
-void sfp::CenteredSprite::setSize(Vector2f size)
+void sfp::CenteredSprite::setSize(sf::Vector2f size)
 {
-    IntRect imageSize = getTextureRect();
-    Vector2f scale = 
-        Vector2f(size.x/imageSize.width,size.y/imageSize.height);
-    Sprite::setScale(scale);
+  sf::IntRect imageSize = getTextureRect();
+  sf::Vector2f scale =
+    sf::Vector2f(size.x/imageSize.width,size.y/imageSize.height);
+  sf::Sprite::setScale(scale);
 }
 
-Vector2f sfp::CenteredSprite::getSize()
+sf::Vector2f sfp::CenteredSprite::getSize()
 {
-    IntRect imageSize = getTextureRect();
-    Vector2f scale = getScale();
-    return Vector2f(imageSize.width*scale.x,
+  sf::IntRect imageSize = getTextureRect();
+  sf::Vector2f scale = getScale();
+    return sf::Vector2f(imageSize.width*scale.x,
         imageSize.height*scale.y);
 }
 

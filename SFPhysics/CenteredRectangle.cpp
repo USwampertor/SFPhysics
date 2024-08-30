@@ -3,35 +3,35 @@
 
 sfp::CenteredRectangle::CenteredRectangle()
 {
-    setCenter(Vector2f(0.5, 0.5));
-    setSize(Vector2f(1, 1));
+    setCenter(sf::Vector2f(0.5, 0.5));
+    setSize(sf::Vector2f(1, 1));
 }
 
-sfp::CenteredRectangle::CenteredRectangle(Vector2f size):
-    RectangleShape(size)
+sfp::CenteredRectangle::CenteredRectangle(sf::Vector2f size):
+  sf::RectangleShape(size)
 {
 }
 
-void sfp::CenteredRectangle::setCenter(Vector2f center)
+void sfp::CenteredRectangle::setCenter(sf::Vector2f center)
 {
-    Vector2f size = getSize();
-    RectangleShape::setPosition(center - (size / 2.0f));
+  sf::Vector2f size = getSize();
+  sf::RectangleShape::setPosition(center - (size / 2.0f));
 }
 
-Vector2f sfp::CenteredRectangle::getCenter()
+sf::Vector2f sfp::CenteredRectangle::getCenter()
 {
-    Vector2f size = getSize();
-    return RectangleShape::getPosition() + (size / 2.0f);
+  sf::Vector2f size = getSize();
+    return sf::RectangleShape::getPosition() + (size / 2.0f);
 }
 
-void sfp::CenteredRectangle::setSize(Vector2f size)
+void sfp::CenteredRectangle::setSize(sf::Vector2f size)
 {
-    Vector2f center = getCenter();
-    RectangleShape::setSize(size);
+  sf::Vector2f center = getCenter();
+  sf::RectangleShape::setSize(size);
     setCenter(center);
 }
 
-Vector2f sfp::CenteredRectangle::getSize()
+sf::Vector2f sfp::CenteredRectangle::getSize()
 {
-    return RectangleShape::getSize();
+    return sf::RectangleShape::getSize();
 }
