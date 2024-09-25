@@ -23,6 +23,7 @@ namespace sfp {
 		void UpdatePhysics(unsigned long deltaMilliseconds, unsigned long msPerTick = 0);
 		void VisualizeAllBounds(sf::RenderWindow& window);
 		void setIgnoreMovement(bool ignore = true);
+		void ChangeGravity(const sf::Vector2f newValue);
 	};
 }
 

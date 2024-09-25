@@ -8,9 +8,13 @@
 
 using namespace sfp;
 
-sfp::PhysicsBody::PhysicsBody():
-	restitution(1.0),mass(1.0),isStatic(false),
-	velocity(sf::Vector2f(0,0))
+sfp::PhysicsBody::PhysicsBody()
+	: restitution(1.0),
+		mass(1.0),
+		isStatic(false),
+		velocity(sf::Vector2f(0,0)),
+		layer("0000000000000000"),
+		isTrigger(false)
 {
 }
 
@@ -124,8 +128,26 @@ bool sfp::PhysicsBody::hasMoved()
 	return moved;
 }
 
+void sfp::PhysicsBody::setLayer(const unsigned int& position, const bool& active)
+{
+	layer.set(position, active ? 1 : 0);
+}
+
+const std::bitset<16>& sfp::PhysicsBody::getLayers()
+{
+	return layer;
+}
 
 
+void sfp::PhysicsBody::setTrigger(const bool& shouldBe)
+{
+	isTrigger = shouldBe;
+}
+
+const bool& sfp::PhysicsBody::checkTrigger()
+{
+	return isTrigger;
+}
 
 
 

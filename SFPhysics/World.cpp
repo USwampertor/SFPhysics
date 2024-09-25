@@ -11,6 +11,12 @@ namespace sfp {
 	{
 		PhysicsBody &A = collision.object1;
 		PhysicsBody &B = collision.object2;
+
+		// If any of the collisions are triggers, the collision should be ignored
+		if (A.checkTrigger() || B.checkTrigger()) { return; }
+		// If a collision is not on the same layer, it should be ignored
+		if (!(A.getLayers() & B.getLayers()).any()) { return; }
+
 		// Calculate relative velocity
 		sf::Vector2f rv = B.getVelocity() - A.getVelocity();
 
@@ -110,4 +116,9 @@ void sfp::World::VisualizeAllBounds(sf::RenderWindow& window)
 void sfp::World::setIgnoreMovement(bool  ignore)
 {
 	ignoreMovement = ignore;
+}
+
+void sfp::World::ChangeGravity(const sf::Vector2f newValue)
+{
+	gravity = newValue;
 }

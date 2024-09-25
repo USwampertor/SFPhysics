@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Bounds.h"
+#include <bitset>
 
 
 namespace sfp {
@@ -14,6 +15,9 @@ namespace sfp {
 		bool isStatic;
 		sf::Vector2f velocity;
 		bool moved;
+		std::bitset<16> layer;
+		bool isTrigger;
+
 	
 	public:
 		PhysicsBody();
@@ -37,6 +41,10 @@ namespace sfp {
 		PhysicsBodyCollisionResult collideWith(PhysicsBody& other);
 		void setMoved(bool moved = false);
 		bool hasMoved();
+		void setLayer(const unsigned int& position, const bool& active);
+		const std::bitset<16>& getLayers();
+		void setTrigger(const bool& shouldBe);
+		const bool& checkTrigger();
 
 		bool operator == (const PhysicsBody& other) {
 			return this == &other;
